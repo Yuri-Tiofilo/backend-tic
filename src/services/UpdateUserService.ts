@@ -22,15 +22,27 @@ class UpdateUserService {
       throw new Error('User not exist');
     }
 
-    const userPasswordCompare = await compare(password, userExist.password);
+    if (password !== '') {
+      const userPasswordCompare = await compare(password, userExist.password);
 
-    if (!userPasswordCompare) {
-      const hasedPassword = await hash(password, 8);
+      if (!userPasswordCompare) {
+        const hasedPassword = await hash(password, 8);
+
+        const user = await usersRepository.merge(userExist, {
+          name,
+          email,
+          password: hasedPassword,
+        });
+
+        await usersRepository.save(user);
+
+        return user;
+      }
 
       const user = await usersRepository.merge(userExist, {
         name,
         email,
-        password: hasedPassword,
+        password: userExist.password,
       });
 
       await usersRepository.save(user);
@@ -41,11 +53,7 @@ class UpdateUserService {
     const user = await usersRepository.merge(userExist, {
       name,
       email,
-      password: userExist.password,
     });
-
-    await usersRepository.save(user);
-
     return user;
   }
 }
