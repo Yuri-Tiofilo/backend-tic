@@ -4,6 +4,7 @@ import { getRepository } from 'typeorm';
 import User from '../models/User';
 
 import CreateUserService from '../services/CreateUserService';
+import UpdateUserService from '../services/UpdateUserService';
 
 const usersRouter = Router();
 
@@ -59,26 +60,23 @@ usersRouter.delete('/:id', async (req, res) => {
 });
 
 usersRouter.put('/:id', async (req, res) => {
-  const usersRepository = getRepository(User);
+  try {
+    const { name, password, email } = req.body;
+    const { id } = req.params;
 
-  const { id } = req.params;
+    const userUpdate = new UpdateUserService();
 
-  const { name, password, email } = req.body;
-
-  const user = await usersRepository.findOne({
-    where: { id },
-  });
-
-  if (user) {
-    await usersRepository.delete(id);
-
-    return res.json({
-      message: 'user delete in database',
+    await userUpdate.execute({
+      email,
+      id,
+      password,
+      name,
     });
+
+    return res.json({ message: 'user update yes' });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
   }
-  return res.status(400).json({
-    message: 'User not exist in database',
-  });
 });
 
 export default usersRouter;
