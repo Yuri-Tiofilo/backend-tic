@@ -32,9 +32,30 @@ usersRouter.post('/', async (req, res) => {
 usersRouter.get('/', async (req, res) => {
   const usersRepository = getRepository(User);
 
-  const users = usersRepository.find();
+  const users = await usersRepository.find();
 
   return res.json(users);
+});
+
+usersRouter.delete('/:id', async (req, res) => {
+  const usersRepository = getRepository(User);
+
+  const { id } = req.params;
+
+  const user = await usersRepository.findOne({
+    where: { id },
+  });
+
+  if (user) {
+    await usersRepository.delete(id);
+
+    return res.json({
+      message: 'user delete in database',
+    });
+  }
+  return res.status(400).json({
+    message: 'User not exist in database',
+  });
 });
 
 export default usersRouter;
