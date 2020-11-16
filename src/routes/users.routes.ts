@@ -66,14 +66,14 @@ usersRouter.put('/:id', async (req, res) => {
 
     const userUpdate = new UpdateUserService();
 
-    await userUpdate.execute({
+    const user = await userUpdate.execute({
       email,
       id,
       password,
       name,
     });
 
-    return res.json({ message: 'user update yes' });
+    return res.json(user);
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }

@@ -11,7 +11,7 @@ interface IRequest {
 }
 
 class UpdateUserService {
-  public async execute({ id, name, email, password }: IRequest): Promise<void> {
+  public async execute({ id, name, email, password }: IRequest): Promise<User> {
     const usersRepository = getRepository(User);
 
     const userExist = await usersRepository.findOne({
@@ -24,13 +24,15 @@ class UpdateUserService {
 
     const hasedPassword = await hash(password, 8);
 
-    const response = await usersRepository.merge(userExist, {
+    const user = await usersRepository.merge(userExist, {
       name,
       email,
       password: hasedPassword,
     });
 
-    await usersRepository.save(response);
+    await usersRepository.save(user);
+
+    return user;
   }
 }
 
