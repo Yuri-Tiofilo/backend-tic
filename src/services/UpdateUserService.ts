@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { hash } from 'bcryptjs';
+import { hash, compare } from 'bcryptjs';
 
 import User from '../models/User';
 
@@ -22,12 +22,26 @@ class UpdateUserService {
       throw new Error('User not exist');
     }
 
-    const hasedPassword = await hash(password, 8);
+    const userPasswordCompare = await compare(password, userExist.password);
+
+    if (!userPasswordCompare) {
+      const hasedPassword = await hash(password, 8);
+
+      const user = await usersRepository.merge(userExist, {
+        name,
+        email,
+        password: hasedPassword,
+      });
+
+      await usersRepository.save(user);
+
+      return user;
+    }
 
     const user = await usersRepository.merge(userExist, {
       name,
       email,
-      password: hasedPassword,
+      password: userExist.password,
     });
 
     await usersRepository.save(user);
