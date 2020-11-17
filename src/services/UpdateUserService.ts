@@ -54,6 +54,8 @@ class UpdateUserService {
       name,
       email,
     });
+    await usersRepository.save(user);
+
     return user;
   }
 }
