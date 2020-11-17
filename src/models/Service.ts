@@ -4,11 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn,
+  // ManyToOne,
+  // JoinColumn,
 } from 'typeorm';
 
-import Provider from './Provider';
+// import Provider from './Provider';
 
 @Entity('services')
 class Service {

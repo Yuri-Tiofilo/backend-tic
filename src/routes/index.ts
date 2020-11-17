@@ -4,6 +4,7 @@ import usersRouter from './users.routes';
 import sessionRouter from './session.routes';
 import providerRouter from './provider.routes';
 import serviceRouter from './services.routes';
+import scheduleProviderRouter from './scheduleProvider.routes';
 
 const routes = Router();
 
@@ -12,5 +13,6 @@ routes.use('/users', usersRouter);
 routes.use('/session', sessionRouter);
 routes.use('/provider', providerRouter);
 routes.use('/services', serviceRouter);
+routes.use('/times', scheduleProviderRouter);
 
 export default routes;
