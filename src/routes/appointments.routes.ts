@@ -7,8 +7,6 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 import CreateAppointmentService from '../services/CreateAppointmentService';
 
-// import AppointmentsController from '../controllers/AppointmentsController';
-
 const appointmentsRouter = Router();
 
 appointmentsRouter.get('/', async (req, res) => {
