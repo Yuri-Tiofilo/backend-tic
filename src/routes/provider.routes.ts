@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 
 import Provider from '../models/Provider';
 import Service from '../models/Service';
+import ScheduleProvider from '../models/ScheduleProvider';
 
 import CreateProviderService from '../services/CreateProviderService';
 import UpdateProviderService from '../services/UpdateProviderService';
@@ -22,6 +23,7 @@ providerRouter.get('/:id', async (req, res) => {
 
   const providerRepository = getRepository(Provider);
   const serviceRepository = getRepository(Service);
+  const scheduleProviderRepository = getRepository(ScheduleProvider);
 
   const provider = await providerRepository.findOne({
     where: { id },
@@ -31,9 +33,14 @@ providerRouter.get('/:id', async (req, res) => {
     where: { provider_id: id },
   });
 
+  const scheduleFromProvider = await scheduleProviderRepository.find({
+    where: { provider_id: id },
+  });
+
   const newProvider = {
     ...provider,
     services: serviceFromProvider,
+    times: scheduleFromProvider,
   };
 
   return res.json(newProvider);

@@ -4,27 +4,29 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
-@Entity('appointments')
-class Appointment {
+import Provider from './Provider';
+
+@Entity('schedule_provider')
+class ScheduleProvider {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   provider_id: string;
 
-  @Column()
-  user_id: string;
+  @ManyToOne(() => Provider)
+  @JoinColumn({ name: 'provider_id' })
+  provider: Provider;
 
   @Column()
-  service_id: string;
+  of: string;
 
   @Column()
-  date: string;
-
-  @Column()
-  time: string;
+  up_to: string;
 
   @CreateDateColumn()
   create_at: Date;
@@ -33,4 +35,4 @@ class Appointment {
   update_at: Date;
 }
 
-export default Appointment;
+export default ScheduleProvider;
