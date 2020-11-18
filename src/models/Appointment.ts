@@ -12,10 +12,19 @@ class Appointment {
   id: string;
 
   @Column()
-  provider: string;
+  provider_id: string;
 
-  @Column('timestamp with time zone')
-  date: Date;
+  @Column()
+  user_id: string;
+
+  @Column()
+  service_id: string;
+
+  @Column()
+  date: string;
+
+  @Column()
+  time: string;
 
   @CreateDateColumn()
   create_at: Date;
