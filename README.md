@@ -34,4 +34,15 @@ ou
 ````js
   yarn dev:server
 ````
+O projeto foi desenvolvido com essas tecnologias:
 
+-  [Node.js](https://nodejs.org/)
+-  [Typeorm](https://typeorm.io/#/)
+-  [Typescript](https://www.typescriptlang.org/)
+-  [Express](https://expressjs.com/pt-br/)
+-  [Date-fns](https://date-fns.org/)
+-  [ESLint](https://eslint.org/)
+-  [Prettier](https://prettier.io/)
+-  [Docker](https://www.docker.com/docker-community/0)
+-  [Postgres](https://www.postgresql.org/)
+-  [VS Code](https://code.visualstudio.com/)
