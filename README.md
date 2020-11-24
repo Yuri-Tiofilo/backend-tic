@@ -1,5 +1,5 @@
 # Backend Tic - Projeto marktplace para cabeleleiros
-### Este projeto foi desenvolvido para o trabalho invidual de conclusão (TIC).
+### Este projeto foi desenvolvido para o Trabalho Interdisciplinar de Computação (TIC).
 
 ### Passos para conseguir rodar o projeto:
 
